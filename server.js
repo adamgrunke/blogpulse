@@ -17,7 +17,11 @@ app.use(function(req, res, next){
 
 // GET / - display all posts and their authors
 app.get('/', function(req, res) {
-    res.render("index");
+    db.post.findAll({
+        include: [db.author]
+    }).then(function(posts){
+        res.render("index",{posts});
+    });
 });
 
 // GET all
@@ -31,5 +35,6 @@ app.get('/', function(req, res) {
 app.use('/authors', require('./routes/authors'));
 app.use('/posts', require('./routes/posts'));
 app.use('/comments', require('./routes/comments'));
+app.use('/tags', require('./routes/tags'));
 
 app.listen(3000);

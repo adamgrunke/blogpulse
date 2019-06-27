@@ -14,7 +14,7 @@ router.get('/new', function(req, res) {
 router.get('/:id', function(req, res) {
     db.post.findOne({
         where: {id: parseInt(req.params.id)},
-        include: [db.author, db.comment]
+        include: [db.author, db.comment, db.tag]
 
     }).then(function(post){
         res.render('posts/show', {post})
@@ -37,7 +37,7 @@ router.post('/', function(req, res) {
         content: req.body.content,
         authorId: req.body.authorId
     }).then(function(post) {
-        res.redirect('/posts');
+        res.redirect('/');
     });
 });
 

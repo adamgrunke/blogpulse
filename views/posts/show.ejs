@@ -1,9 +1,19 @@
-<% console.log(post)%>
 <h1><%= post.title %><small>by <%= post.author.name%></small></h1>
 
 <p>
     <%= moment(post.createdAt).calendar() %>
 </p>
+
+<p>
+<% post.tags.forEach(function(tag){ %>
+    <span><%= tag.name%> | </span>
+<% }); %>
+</p>
+<form action="/tags" method="POST">
+    <input type="text" name="name" placeholder="name">
+    <input type="hidden" name="postId" value="<%= post.id %>" >
+    <input type="submit" value="TAG THS POST">
+</form> 
 
 <p><%= post.content %></p>
 
